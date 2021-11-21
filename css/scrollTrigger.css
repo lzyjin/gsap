@@ -1,0 +1,19 @@
+* {
+	box-sizing: border-box;
+}
+body {
+	margin: 50px;
+	padding: 0;
+}
+.box {
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	margin-bottom: 500px;
+	font-size: 40px;
+	font-weight: 900;
+	line-height: 90px;
+}
+.box.a {background-color: purple; }
+.box.b {background-color: green; }
+.box.c {background-color: orange; }
