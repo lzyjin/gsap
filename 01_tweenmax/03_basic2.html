@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>트윈맥스 3 - 기초 Controlling</title>
+  <style>
+    .container {
+      border: 1px solid #000;
+      height: 300px;
+    }
+    .tweenbox,
+    .tweenbox2,
+    .tweenbox3,
+    .tweenbox4 {
+      width: 100px;
+      height: 100px;
+      border: 2px solid blue;
+      background: lightblue;
+      box-sizing: border-box;
+    }
+    .btn {
+      display:inline-block;
+      padding:5px 10px 6px;
+      background-color:#333;
+      font-size:13px;
+      color:#fff;
+      text-decoration:none
+    }
+    .content {
+      display:flex;
+      padding:100px 30px;
+      border:1px solid #000
+    }
+    .tweenBox5 {
+      width:100px;
+      height:100px;
+      border:2px solid crimson;
+      background:lightcoral;
+      box-sizing:border-box
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>repeat</h1>
+  <div class="container">
+    <div class="tweenbox"></div>
+  </div>
+
+  <h1>repeatDelay</h1>
+  <div class="container">
+    <div class="tweenbox2"></div>
+  </div>
+
+  <br><br>
+
+  <a href="#none" id="btnDelay" class="btn">Toggle Tween Delay</a>
+  <div class="content" style="justify-content:center;">
+    <div class="tweenbox3"></div>
+  </div>
+
+  <h1>yoyo</h1>
+  <div class="container">
+    <div class="tweenbox4"></div>
+  </div>
+
+  <h1>pause(), resume(), restart()</h1>
+  <a href="javascript:tweenStart();" class="btn">Start</a>
+  <a href="javascript:tweenPause();" class="btn">Pause()</a>
+  <a href="javascript:tweenResume();" class="btn">Resume()</a>
+  <a href="javascript:tweenRestart();" class="btn">Restart()</a>
+  <div class="content">
+    <div id="tweenBox5" class="tweenBox5"></div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
+  <script>
+    // 참고 링크: https://www.biew.co.kr/entry/%ED%8A%B8%EC%9C%88%EB%A7%A5%EC%8A%A4-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EA%B8%B0-%EA%B8%B0%EC%B4%882GSAP-Variables-Tween-Controlling?category=314309
+    // 블로거가 사용한 GSAP 버전: 3.8.0
+
+    // GSAP Variables (트윈 제어 - Tween Controlling)
+    // GSAP은 움직임을 제어할 수 있는 메서드를 제공한다.
+
+    // repeat, repeatDelay, delay, yoyo
+    // start, resume, restart, pause
+    // reverse, isActive, seek, timeScale
+
+
+    // 💛 repeat:number
+    // 애니메이션(트윈이라 정의)의 반복 횟수를 설정한다.
+    // 기본값은 1이며, -1을 설정하면 무한반복.
+    // 1이면 트윈은 총 두 번(초기 재생 + 1 반복) 재생.
+    // 이 메서드는 getter와 setter 역할을 한다.
+    // 매개변수를 생략하면 현재 값(getter)이 반환되는 반면 매개변수를 정의하면 값(setter)이 설정된다.
+    gsap.to('.tweenbox', 2, {
+      marginTop: 200,
+      marginLeft: 200,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+
+      // repeat: 3 // 4(3+1)번 실행
+      // repeat: -1 // 무한반복
+    });
+
+
+    // 💛 repeatDelay:number
+    // 트윈 반복 시 지연 시간을 초 단위로 설정한다.
+    // 이 메서드는 getter와 setter 역할을 한다. 매개변수를 생략하면 현재 값(getter)이 반환되는 반면 매개변수를 정의하면 값(setter)이 설정된다.
+    gsap.to('.tweenbox2', 3, {
+      marginTop: 200,
+      marginLeft: 200,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      repeat: 3,
+
+      repeatDelay: 2 // 반복 지연시간 설정(초 단위)
+    });
+
+
+    // 💛 delay:number
+    // 트윈 지연 시간을 초 단위로 설정
+    const btnDelay = document.getElementById('btnDelay');
+    btnDelay.addEventListener('click', () => {
+      gsap.fromTo('.tweenbox3', 1.5, {
+        scaleX: 1,
+        scaleY: 1,
+        rotation: 0,
+        delay: 0
+      },
+      {
+        scaleX: 2,
+        scaleY: 2,
+        rotation: 180,
+        // delay: .5
+        delay: 3
+      });
+    });
+
+
+
+    // 💛 yoyo:boolean
+    // 트윈을 앞뒤로 반복하여 실행
+    // css 속성 animation-direction: alternate와 동일
+    gsap.to('.tweenbox4', 3, {
+      marginLeft: 300,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      repeat: -1, //repeat 값이 -1 일 경우 무한 반복
+      yoyo: true // 애니메이션을 앞뒤로 반복하여 실행 시킴 - yoyo: Boolean
+    });
+
+
+    // 💛 yoyo:boolean
+    // pause(): 트윈의 현재 위치에서 일시 중지
+    // resume(): 방향을 바꾸지 않고 현재 위치에서 트윈을 재시작
+    // restart(): 트윈을 처음부터 다시 시작
+    var tweenBox5;
+    function tweenStart() {
+      var motionBox = document.getElementById('tweenBox5');
+      tweenBox5 = TweenMax.fromTo(motionBox, 5, {
+        x: 0,
+        backgroundColor: 'lightcoral',
+        border: '2px solid crimson'
+      },
+      {
+        x: 500,
+        backgroundColor: '#ccc',
+        border: '2px solid #222',
+        'borderRadius': 30
+      });
+    }
+    function tweenPause() {
+      tweenBox5.pause(); // 멈춤
+    }
+    function tweenResume() {
+      tweenBox5.resume(); // 재시작
+    }
+    function tweenRestart() {
+      tweenBox5.restart(); // 처음부터 다시시작
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>

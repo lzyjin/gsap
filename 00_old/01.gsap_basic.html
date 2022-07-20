@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>gsap - 기초</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" defer></script>
+	<script src="/js/script.js" defer></script>
+</head>
+
+<body>
+
+	<p style="text-align: center;">gsap 기초 </p>
+
+	<h2>
+		Common methods for creating a Tween 
+		<span>(all of these methods return a Tween instance)</span>:<br>
+		gsap.to(), gsap.from(), gsap.fromTo()
+	</h2>
+
+	<p>Tween은 애니메이션이 작동하도록 하는 객체</p>
+
+	<br><hr>
+
+	<h1>gsap.to()</h1>
+	<p>gsap.to(대상(querySelector 문법), 속성들)</p>
+	<p>return : Tween</p>
+	<ul>
+		속성
+		<li>x: x축 방향 이동값</li>
+		<li>rotation: 회전값</li>
+		<li>duration: 지속시간 (초, default: 0.5)</li>
+		<li>opacity: 투명도 (default: 1)</li>
+		<li>delay: 딜레이 (초)</li>
+		<li>scale: 크기 (default: 1)</li>
+		<li>ease: 애니메이션의 속도를 제어 (default: 'power1.out')</li>
+		<li>backgroundColor, width, height, color 등 css 속성 (camelCase로 작성)</li>
+		<li>paused: 애니메이션을 즉시 실행할지 말지 (default: false)</li>
+	</ul>
+	<section>
+		<div class="box box1">box1</div>
+		<div class="box box2">box2</div>
+		<div class="box box3">box3</div>
+	</section>
+	
+	<br><br><br>
+
+	<h1>gsap.from(), fromTo(), set()</h1>
+	<p>gsap.from()은 to()와 정반대로, 시작값을 정하고 원래대로 되돌아오는 애니메이션을 실행</p>
+	<p>gsap.from()은 from()속성이 시작값으로 세팅, to()속성이 종료값으로 세팅되어 애니메이션을 실행</p>
+	<p>set()은 애니메이션 효과 없이 즉시 실행</p>
+	<p>return : Tween</p>
+	<section>
+		<div class="box box4">from()</div>
+		<div class="box box5">fromTo()</div>
+		<div class="box box6">set()</div>
+	</section>
+
+	<br><br><br>
+
+	<h1>tween.play(), pause(), resume(), reverse(), restart()</h1>
+	<p>애니메이션을 시작, 정지, 재개, 반전, 재시작</p>
+	<section class="section03">
+		<div class="box box7">box7</div>
+		<div class="btns">
+			<button class="btn play">play()</button>
+			<button class="btn pause">pause()</button>
+			<button class="btn resume">resume()</button>
+			<button class="btn reverse">reverse()</button>
+			<button class="btn restart">restart()</button>
+		</div>
+	</section>
+	
+	<br><br><br>
+
+	<h1>gsap.timeline()</h1>
+	<p>
+		애니메이션을 순차적으로 실행하고싶을 때 모든 애니메이션에 delay속성을 사용하는 방법은 비효율적이다. <br>
+		만약 첫번째 애니메이션을 더 길게 만들고 싶으면 그 이후의 애니메이션의 delay값을 모두 조정해야하기 때문이다. <br>
+		gsap.timeline()을 사용하면 애니메이션의 순차적 실행을 간단하고 효율적으로 관리할 수 있다.
+	</p>
+	<section>
+		<p>bad: </p>
+		<div class="box box8"></div>
+
+		<p>good: </p>
+		<div class="box box9"></div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ScrollTrigger</title>
+	<link rel="stylesheet" href="css/scrollTrigger.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js" defer></script>
+	<script src="js/scrollTrigger.js" defer></script>
+</head>
+<body>
+	<h3>ScrollTrigger 사용 준비</h3>
+	<h1>0. html파일 head태그 안에 gsap.js cdn과 ScrollTrigger.js cdn 불러오기</h1>
+	<h1>1. ScrollTrigger 플러그인을 사용한다고 알리기</h1>
+	<p>js파일 최상단에 gsap.registerPlugin(ScrollTrigger);</p>
+
+	<br><br>
+
+	<h3>ScrollTrigger 사용</h3>
+	<h1>scrollTrigger: 스크롤을 해서 해당 요소가 보일 때 애니메이션이 나타나도록 하기</h1>
+	<p>scrollTrigger속성값: 애니메이션 실행 기준이 되는 요소</p>
+	<pre>
+		gsap.to('.c', {
+			scrollTrigger: '.c',
+			x: 400,
+			rotation: 360,
+			duration: 3
+		});
+		---> .c 요소가 보이기 시작할 때 .c의 애니메이션이 실행된다. 
+	</pre>
+	<pre>
+		gsap.to('.b', {
+			scrollTrigger: '.c',
+			x: 400,
+			rotation: 360,
+			duration: 3
+		});
+		---> .c 요소가 보이기 시작할 때 .b의 애니메이션이 실행된다. 
+	</pre>
+
+
+	<h1>toggleActions: 4개의 토글위치에서 순서대로 제어되는 방식을 결정한다</h1>
+	<p>onEnter, onLeave, onEnterBack, onLeaveBack 순서</p>
+	<p>들어갈 때, 나갈 때, 뒤로 다시 들어갈 때, 처음부터 끝까지 스크롤할 때 순서</p>
+	<p>default: play none none none</p>
+
+
+
+  <h1>markers: 트리거의 시작과 끝을 표시, 스크롤러의 시작과 끝을 표시</h1>
+  <p>값: Object | Boolean</p>
+  <p>
+    true로 할 경우 기본적으로 startColor: "green", endColor: "red", fontSize: "16px", fontWeigth: "normal", indent: 0
+  </p>
+  <p>
+    markers: {startColor: "white", endColor: "white", fontSize: "18px", fontWeight: "bold", indent: 20} 처럼 정의해서 커스텀할 수 있다
+  </p>
+
+
+  <h1>start: ScrollTrigger의 시작위치를 결정한다</h1>
+  <p>값은 문자열, 숫자, 함수</p>
+  <p>start: "top center": 트리거의 상단이 스크롤러의 중앙에 닿을 때 시작</p>
+  <p>start: "bottom 80%": 트리거의 하단이 뷰포트 상단에서 80% 아래로 떨어질 때 시작</p>
+  <p>문자열 값: top, bottom, center, (left, right), 100% (백분율), 100px(픽셀값)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="box a">a</div>
+	<div class="box b">b</div>
+	<div class="box c">c</div>
+
+  
+</body>
+</html>
