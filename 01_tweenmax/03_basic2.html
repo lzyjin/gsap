@@ -26,14 +26,19 @@
       background-color:#333;
       font-size:13px;
       color:#fff;
-      text-decoration:none
+      text-decoration:none;
+      cursor: pointer;
     }
     .content {
       display:flex;
       padding:100px 30px;
       border:1px solid #000
     }
-    .tweenBox5 {
+    .tweenBox5,
+    .tweenBox6,
+    .tweenBox7,
+    .tweenBox8,
+    .tweenBox9{
       width:100px;
       height:100px;
       border:2px solid crimson;
@@ -75,6 +80,35 @@
   <div class="content">
     <div id="tweenBox5" class="tweenBox5"></div>
   </div>
+
+  <h1>reverse()</h1>
+  <a href="javascript:tween6Start();" class="btn">Start</a>
+  <a href="javascript:tween6Reverse();" class="btn">Reverse()</a>
+  <div class="content">
+    <div id="tweenBox6" class="tweenBox6"></div>
+  </div>
+
+  <h1>isActive()</h1>
+  <a id="btnBox7" class="btn">Toggle Tween Reserve</a>
+  <div class="content">
+    <div class="tweenBox7"></div>
+  </div>
+
+  <h1>seek()</h1>
+  <a href="javascript:tween8Start();" class="btn">Start</a>
+  <a href="javascript:tween8Seek();" class="btn">Reverse()</a>
+  <div class="content">
+    <div id="tweenBox8" class="tweenBox8"></div>
+  </div>
+
+
+  <h1>timeScale</h1>
+  <a href="javascript:tween9Start();" class="btn">Start</a>
+  <a href="javascript:tween9TimeScale();" class="btn">Timescale(0.5)</a>
+  <div class="content">
+    <div id="tweenBox9" class="tweenBox9"></div>
+  </div>
+
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
@@ -161,9 +195,9 @@
     // pause(): 트윈의 현재 위치에서 일시 중지
     // resume(): 방향을 바꾸지 않고 현재 위치에서 트윈을 재시작
     // restart(): 트윈을 처음부터 다시 시작
-    var tweenBox5;
+    let tweenBox5;
     function tweenStart() {
-      var motionBox = document.getElementById('tweenBox5');
+      const motionBox = document.getElementById('tweenBox5');
       tweenBox5 = TweenMax.fromTo(motionBox, 5, {
         x: 0,
         backgroundColor: 'lightcoral',
@@ -187,18 +221,94 @@
     }
 
 
+    // 💛 reverse()
+    // 트윈 재생을 역방향으로 설정한다.
+    let tweenBox6;
+    function tween6Start() {
+      const motionBox = document.getElementById('tweenBox6');
+      tweenBox6 = gsap.fromTo(motionBox, 2, {
+        x: 0,
+        backgroundColor: 'lightcoral',
+        border: '2px solid crimson',
+      }, {
+        x: 300,
+        backgroundColor: '#ccc',
+        border: '2px solid #222',
+      });
+    }
+    function tween6Reverse() {
+      tweenBox6.reverse(); // 역방향으로 진행
+    }
 
 
 
+    // 💛 isActive()
+    // 트윈의 활성화 여부를 나타냄
+    (function() {
+      const tween = gsap.to('.tweenBox7', 2, {
+        x: 300,
+        backgroundColor: '#ccc',
+        border: '2px solid #222',
+        borderRadius: 30,
+        revered: true // reversed() : 애니메이션의 역방향의 대한 여부 및 설정
+      });
+
+      document.getElementById('btnBox7').addEventListener('click', () => {
+        if(!tween.isActive()) { // isActive(): 애니메이션 활성화 여부
+          console.log(tween.isActive());
+          tween.reversed() ? tween.play() : tween.reverse();
+        }
+      });
+    })();
 
 
 
+    // 💛 seek(number)
+    // 트윈을 지정한 시간으로 점프한다.
+    let tweenBox8;
+    function tween8Start() {
+      const motionBox = document.getElementById('tweenBox8');
+      tweenBox8 = gsap.fromTo(motionBox, 5, {
+        x: 0,
+        backgroundColor: 'lightcoral',
+        border: '2px solid crimson',
+        borderRadius: '0'
+      }, {
+        x: 300,
+        backgroundColor: '#ccc',
+        border: '2px solid #222',
+        borderRadius: '50%'
+      });
+    }
+    function tween8Seek() {
+      tweenBox8.seek(3); // 3초의 위치로 점프
+    }
 
 
 
-
-
-
+    // 💛 timeScale(number)
+    // 트윈의 속도 증가와 감소를 설정
+    // 기본값은 1, 1보다 작으면 속도 감소(애니메이션 오래걸림), 1보다 크면 속도 증가(애니메이션 빨라짐)
+    // 1 = 정상 속도(기본값), 0.5 = 절반 속도, 2 = 2배 속도, -1 = 정상 속도로 뒤로 이동
+    // 애니메이션 duration이 2이지만 timeScale이 0.5이면 완료하는 데 4초가 걸린다.
+    let tweenBox9;
+    function tween9Start() {
+      const motionBox = document.getElementById('tweenBox9');
+      tweenBox9 = gsap.fromTo(motionBox, 5, {
+        x: 0,
+        backgroundColor: 'lightcoral',
+        border: '2px solid crimson',
+        borderRadius: '0'
+      }, {
+        x: 700,
+        backgroundColor: '#ccc',
+        border: '2px solid #222',
+        borderRadius: '50%'
+      });
+    }
+    function tween9TimeScale() {
+      tweenBox9.timeScale(0.5); // 애니메이션 10초 걸림
+    }
 
 
 
