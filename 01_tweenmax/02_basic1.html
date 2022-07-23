@@ -122,7 +122,7 @@
     // .TimelineMax()
 
 
-    // gsap.to()
+    // 💛 gsap.to()
     // this(Target) 속성에서 지정한 속성까지 트윈
     gsap.to('.tweenbox', 3, {
       marginLeft: 300,
@@ -132,7 +132,7 @@
     });
 
 
-    // gsap.from()
+    // 💛 gsap.from()
     // 지정한 속성에서 this(Target) 속성까지 트윈
     gsap.from('.tweenbox2', 3, {
       marginLeft: 300,
@@ -142,7 +142,7 @@
     });
 
 
-    // gsap.fromTo()
+    // 💛 gsap.fromTo()
     // from에서 지정된 값에서 to가 지정된 값으로 트윈
     // gsap.fromTo(target, duration, {from vars}, {to vars});
     gsap.fromTo('.tweenbox3', 5, {
@@ -157,7 +157,7 @@
     });
 
 
-    // TweenMax.staggerTo()
+    // 💛 TweenMax.staggerTo()
     // TweenMax.staggerTo(target(Array), duration, {vars}, 대상 배열 트윈 사이의 딜레이 시간)
     // 여러 개의 배열(Array)인 this(Target) 속성을 순차적(시간차)으로 지정한 속성까지 트윈한다.
     // stagger 메서드는 공식 문법이 gsap로 바뀌기 이전 버전(2.1.3 - Version)인 TweenMax 였을 때 존재했던 메서드이지만
@@ -175,7 +175,7 @@
     }
 
 
-    // TweenMax.staggerFrom()
+    // 💛 TweenMax.staggerFrom()
     // 여러 개의 배열(Array)을 지정한 속성에서 this(Target) 속성까지 순차적(시간차)으로 트윈한다.
     // TweenMax.staggerFrom(target(Array), duration, {vars}, 대상 배열 트윈 사이의 딜레이 시간)
     TweenMax.staggerFrom('.tweenbox5', 1, {
@@ -186,14 +186,13 @@
     }, 0.2);
 
 
-    // TimelineMax()  ( timeLine.to().to()... )
+    // 💛 TimelineMax()  ( timeLine.to().to()... )
     // this(Target) 하나의 객체를 순차적으로 트윈하는 타임라인 문법
     // gsap.to()가 연달아 있는 코드와 비슷하다.
     var timeLine = new TimelineMax();
     timeLine.to('.tweenbox6', 1, {backgroundColor: 'orange'})
             .to('.tweenbox6', 1, {backgroundColor: 'cyan'})
             .to('.tweenbox6', 1, {backgroundColor: '#ccc'});
-
 
   </script>
 </body>

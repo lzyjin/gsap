@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>트윈맥스 6 - 심화 곡선 애니메이션 bazier</title>
+  <style>
+    .tweenbox,
+    .tweenbox2,
+    .tweenbox3,
+    .tweenbox4,
+    .tweenbox5 { position: absolute; top: 0; left: 0; width: 80px; height: 80px; border: 1px solid orangered; }
+
+    .tweenbox { background-color: red; }
+    .tweenbox2 { background-color: orange; }
+    .tweenbox3 { background-color: yellow; }
+    .tweenbox4 { background-color: green; }
+    .tweenbox5 { background-color: blue; }
+
+    .box { display: inline-block;position: absolute; right: 0; left: 0; height: 35px; background-color: peachpuff; text-align: center; line-height: 2.2;}
+    .box.top { top: 0; }
+    .box.bottom { bottom: 0; }
+
+    .tweenbox,
+    .tweenbox2 { display: none; }
+  </style>
+</head>
+
+<body>
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>-->
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/EasePack.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+
+  <!-- TweenMax 곡선, 라운드 애니메이션 -->
+
+  <!-- bezier -->
+  <!--
+    Target 객체를 정해진 좌표까지 이동을 직선으로 하는 것이 아닌 부드러운 곡선으로 이동한다.
+
+    * 코드 작성 기본 규칙
+    - GSAP 라이브러리로는 bezier curve 곡선을 사용할 수 없다.
+    bezier 곡선을 사용하기 위해서는 GSAP의 TweenMax 라이브러리를 사용해야 한다.
+
+    https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js
+
+    - bezier 코드는 CSS position 속성이 없으면 사용할 수 없다.
+    그러나 애니메이션 키 값을 'top', 'left'가 아닌 'x', 'y' 키 값으로 좌표값을 작성하여 트윈하면
+    CSS position 속성 없이 애니메이션이 가능하다.
+
+    - bezier 속성 안에 ease, repeat, yoyo 등의 gsap 속성을 사용할 수 있다.
+  -->
+
+  <!-- bezier 속성인 curviness, autoRotate, type 속성을 이용한 bezier 곡선 -->
+  <!--
+    - curviness: 곡률, 커브의 강도를 나타낸다. 키 값이 크면 클수록 역동적으로 애니메이션 된다.
+    - autoRotate: true를 키 값으로 주면 진행 방향이 '곡선의 움직임 방향'으로 엘리먼트가 틀어져 애니메이션이 발생하며,
+                  false를 키 값으로 주면 진행방향과 상관없이 target 모습 그대로 틀어짐 없이 애니메이션 된다.
+    - type: 기본값은 'true'이며, 'soft', 'quadratic', 'cubic'의 4가지이다.
+  -->
+
+
+  <!-- 좌표 키값과 기본 GSAP 속성을 사용한 bezier 곡선 -->
+  <div class="tweenbox">
+    <span class="box top">UP</span>
+    <span class="box bottom">DOWN</span>
+  </div>
+
+  <script>
+    TweenMax.to('.tweenbox', 3, {
+      bezier: [
+          { top: 200, left: 200 },
+          { top: 0, left: 400 },
+          { top: 100, left: 600 }
+      ],
+      ease: Power1.easeInOut,
+      repeat: -1, // 무한반복
+      yoyo: true,
+    });
+  </script>
+
+
+  <!-- curviness, autoRotate 속성 값을 적용한 bezier 곡선 -->
+  <div class="tweenbox2">
+    <span class="box top">UP</span>
+    <span class="box bottom">DOWN</span>
+  </div>
+
+  <script>
+    TweenMax.to('.tweenbox2', 3, {
+      bezier: {
+        curviness: 1.5, // 곡률, 값이 클수록 더욱 액티브한 커브 효과
+        // curviness: 3,
+        values: [
+          { top: 200, left: 200 },
+          { top: 0, left: 400 },
+          { top: 100, left: 600 }
+        ],
+        autoRotate: true, // 곡선의 움직임 방향으로 엘리먼트가 틀어짐
+      },
+      ease: Power1.easeInOut,
+      repeat: -1, // 무한반복
+      yoyo: true,
+    });
+  </script>
+
+
+  <br><br><br><br><br><br>
+  <!-- type 속성 값을 적용한 bezier 곡선 -->
+
+  <div class="tweenbox3">
+    <span class="box top">UP - soft</span>
+    <span class="box bottom">DOWN</span>
+  </div>
+  <div class="tweenbox4">
+    <span class="box top">UP - quadratic</span>
+    <span class="box bottom">DOWN</span>
+  </div>
+  <div class="tweenbox5">
+    <span class="box top">UP - cubic</span>
+    <span class="box bottom">DOWN</span>
+  </div>
+
+  <script>
+    TweenMax.to('.tweenbox3', 3, {
+      bezier: {
+        type: 'soft', // soft: 커브를 돌 때 부드럽게 돌아감.
+        values: [
+          { top: 200, left: 200 },
+          { top: 0, left: 400 },
+          { top: 100, left: 600 },
+          { top: 0, left: 800 }
+        ],
+      },
+      ease: Power1.easeInOut,
+      repeat: -1, // 무한반복
+      yoyo: true,
+    });
+    TweenMax.to('.tweenbox4', 3, {
+      bezier: {
+        type: 'quadratic', // quadratic: 2차 곡선
+        values: [
+          { top: 200, left: 200 },
+          { top: 0, left: 400 },
+          { top: 100, left: 600 }
+        ],
+      },
+      ease: Power1.easeInOut,
+      repeat: -1, // 무한반복
+      yoyo: true,
+    });
+    TweenMax.to('.tweenbox5', 3, {
+      bezier: {
+        type: 'cubic', // cubic: 3차 곡선
+        values: [
+          { top: 200, left: 200 },
+          { top: 0, left: 400 },
+          { top: 100, left: 600 },
+          { top: 0, left: 800 }
+        ],
+      },
+      ease: Power1.easeInOut,
+      repeat: -1, // 무한반복
+      yoyo: true,
+    });
+  </script>
+</body>
+</html>

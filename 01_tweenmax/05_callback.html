@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>트윈맥스 5 - 심화 callback</title>
+  <style>
+    .tweenbox,
+    .tweenbox2,
+    .tweenbox3,
+    .tweenbox4,
+    .tweenbox5,
+    .tweenbox6,
+    .tweenbox7 { width: 100px; height: 100px;border: 2px solid crimson; background: lightcoral; box-sizing: border-box;  }
+  </style>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/EasePack.min.js"></script>
+
+  <!-- GSAP Callback (트윈 제어 - 콜백 함수) -->
+
+  <!--
+    callback은 이벤트에 전달해 주는 콜백 함수입니다.
+    GSAP은 함수를 호출하고 인수를 전달하는 과정을 편하게 제어할 수 있습니다.
+    GSAP 콜백 함수는 onInit, onStart, onComplete, onUpdate, onRepeat, onReserveComplete 가 있다.
+  -->
+
+
+
+  <!--
+    💛 onInit
+
+    애니메이션(Tween)이 시작되기 바로 전에 함수를 호출한다.
+    onStart와 별 차이가 없지만, onStart보다 빨리 호출된다.
+  -->
+
+  <div class="tweenbox"></div>
+  <script>
+    gsap.to('.tweenbox', 3, {
+      marginLeft: 300,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      onInit: alertMessage
+    });
+
+    function alertMessage() {
+      alert('GSAP Tween 시작 전');
+    }
+  </script>
+
+
+  <!--
+      💛 onStart
+
+      애니메이션(Tween)이 시작할 때 함수를 호출한다.
+    -->
+
+  <div class="tweenbox2"></div>
+  <script>
+    gsap.to('.tweenbox2', 3, {
+      marginLeft: 300,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      onInit: alertMessage2
+    });
+
+    function alertMessage2() {
+      alert('GSAP Tween 시작');
+    }
+  </script>
+
+
+  <!--
+        💛 onComplete
+
+        애니메이션(Tween)이 종료되었을 때 함수를 호출한다.
+        퍼블리셔가 프로젝트 퍼블리싱 작업 시 사용빈도가 가장 높다.
+      -->
+
+  <div class="tweenbox3"></div>
+  <script>
+    gsap.to('.tweenbox3', 3, {
+      marginLeft: 300,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      onComplete: ani
+    });
+
+    function ani() {
+      alert('GSAP Tween 종료');
+
+      gsap.to('.tweenbox3', 3, {
+        marginLeft: 0,
+        backgroundColor: '#add8e6',
+        border: '2px solid blue',
+        borderRadius: 0,
+      });
+    }
+  </script>
+
+
+  <!--
+    💛 Event + Params
+
+    애니메이션(Tween) 중 호출하고자 하는 함수 뒤에 Params 파라미터를 붙일 수 있다.
+
+    규칙
+    1. 배열 형태로 인수를 전달해야 한다.
+    2. 자기 자신의 값을 전달할 때는 '{self}'로 전달해야 한다.
+  -->
+
+  <div class="tweenbox4"></div>
+  <div class="message"></div>
+
+  <script>
+    const messageArea = document.querySelector('.message');
+
+    gsap.to('.tweenbox4', 3, {
+      marginLeft: 300,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      onStart: printMessage,
+      onStartParams: ['GSAP Tween 시작', 'Start'],
+      onComplete: printMessage,
+      onCompleteParams: ['GSAP Tween 종료', 'End'],
+    });
+
+    function printMessage(msg1, msg2) {
+      messageArea.innerHTML += msg1 + '-' + msg2 + '<br>';
+    }
+  </script>
+
+
+  <!--
+        💛 onUpdate
+
+        애니메이션(Tween)이 계속 진행되는 동안 함수를 호출한다.
+      -->
+
+  <div class="tweenbox5"></div>
+  <script>
+    gsap.to('.tweenbox5', 3, {
+      marginLeft: 300,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      onUpdate: printMessage2
+    });
+
+    function printMessage2() {
+      console.log('GSAP Tween 진행중');
+    }
+  </script>
+
+
+  <!--
+        💛 onRepeat
+
+        애니메이션(Tween)이 반복될 때마다 함수를 호출한다.
+      -->
+
+  <div class="tweenbox6"></div>
+  <script>
+    gsap.to('.tweenbox6', 3, {
+      marginLeft: 300,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      repeat: 5, // 최초 1번 + 5번 반복
+      onRepeat: printMessage3
+    });
+
+    function printMessage3() {
+      console.log('🤪 GSAP Tween 반복!');
+    }
+  </script>
+
+
+  <!--
+        💛 onReserveComplete
+
+        애니메이션(Tween)이 반전(Reverse)된 후 모션이 완료되었을 때 함수를 호출한다.
+      -->
+
+  <div class="tweenbox7"></div>
+  <script>
+    const motionbox7 = gsap.to('.tweenbox7', 3, {
+      marginLeft: 300,
+      backgroundColor: '#ccc',
+      border: '2px solid #222',
+      borderRadius: 30,
+      onReverseComplete: printMessage4,
+    });
+
+    document.querySelector('.tweenbox7').addEventListener('click', reverseAni);
+
+    function reverseAni() {
+      motionbox7.reverse();
+    }
+    function printMessage4() {
+      console.log('🦊 GSAP Tween 반전 종료');
+    }
+  </script>
+</body>
+</html>
