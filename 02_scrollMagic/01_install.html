@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01 - 스크롤매직 설치</title>
+    <style>
+        .container { margin-top: 40px; padding: 0 50px; }
+        .container h2 { margin-bottom: 20px; font-size: 30px; letter-spacing: -1px; }
+        .container .text { margin-bottom: 10px; padding-bottom: 80px; font-size: 14px; line-height: 140%; }
+        .container .icon-round { width: 150px; height: 150px; margin: 120px 0; color: #fff; font-size: 22px; line-height: 150px; text-align: center; background-color: #ccc6db; border-radius: 100% ;}
+        .trigger { padding: 5px 10px; font-weight: bold; font-size: 16px; color: #6332f6; background-color: #eee; }
+    </style>
+</head>
+<body>
+    <h1>스크롤 매직 설치 방법</h1>
+    <a href="https://scrollmagic.io/docs/index.html#installation">스크롤 매직 v2.0.7 도큐먼트</a>
+    <p>
+        1. github 클론<br>
+        git clone git://github.com/janpaepke/ScrollMagic.git<br><br>
+        2. bower<br>
+        bower install scrollmagic<br><br>
+        3. npm<br>
+        npm install scrollmagic<br><br>
+        4. cdn<br>
+        http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js<br><br>
+        스크롤매직을 구현한 화면에 인디케이터를 표시해 도와주는 파일:<br>
+        http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.js<br>
+        또는<br>
+        http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js
+    </p>
+
+    <br><br>
+
+    <h1>ScrollMagic 동작 원리 문법</h1>
+    <ol>
+        <li>ScrollMagic 애니메이션을 실행하기 위한 Controller 생성</li>
+        <li>GSAP(TweenMax) 애니메이션 오브젝트 생성</li>
+        <li>ScrollMagic 상세 옵션 설정을 Scene 오브젝트 생성</li>
+        <li>Scene 오브젝트(3번)에 GSAP(TweenMax) 애니메이션 오브젝트(2번)를 추가</li>
+        <li>Controller(1번)에 Scene 오브젝트를 추가</li>
+    </ol>
+
+    <br><br>
+
+    <h1>ScrollMagic 동작 원리 맛보기 예제</h1>
+    <div class="container">
+        <h2>Let's start showing off some magic...</h2>
+        <p class="text">Please note: Most of the examples are not optimized for mobile devices,<br> so the sourcecode can be as simple as possible. The obvious exceptions are the examples on mobile support.</p>
+        <div class="space"></div>
+        <div id="trigger1" class="trigger">Trigger 1</div>
+        <div id="animate" class="icon-round">ScrollMagic</div>
+        <div class="space"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js'></script>
+
+    <!-- 얘가 없으면 안돼-->
+<!--    https://github.com/janpaepke/ScrollMagic/wiki/Get-Started-Setup-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js'></script>
+    <script src="js/01_install.js"></script>
+</body>
+</html>
