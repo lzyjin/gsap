@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02 - 스크롤매직 기본문법, 메서드, 옵션</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        .duration {
+            padding: 0 5vw; }
+        .duration .wrap-icon { display: flex; flex-wrap: wrap; }
+        .duration .icon { width: 140px; height: 140px; margin-right: 30px; color: #fff; font-size: 30px; line-height: 140px; text-align: center; background-color: #ccc6db; border-radius: 100%; }
+        .duration .trigger { padding: 5px 10px; font-weight: bold; font-size: 16px; color: #6332F6; background-color: #eee; }
+        .duration .space { height: 80px; }
+    </style>
+</head>
+<body>
+    <h1>ScrollMagic 기본 문법</h1>
+    <p>
+        1. ScrollMagic 애니메이션을 실행하기 위한 Controller 생성.<br>
+        <code>
+            var controller = new ScrollMagic.Controller();
+        </code>
+    </p>
+    <p>
+        2. 스크롤될 때 필요한 애니메이션 오브젝트 생성.<br>
+        GSAP(TweenMax) 라이브러리를 사용하여 애니메이션 코드 작성. <br>
+        <code>
+            var tween = TweenMax.to('#animate', 0.5, {
+                x: 600,
+                y: 500,
+                backgroundColor: '#6431ff',
+                scale: 2.5,
+                rotation: 360,
+            });
+        </code>
+    </p>
+    <p>
+        3. ScrollMagic 상세 옵션 설정을 위한 Scene 오브젝트 생성. <br>
+        <code>
+            var scene = new ScrollMagic.Scene();
+        </code>
+    </p>
+    <p>
+        4. Scene 오브젝트에 어떠한 객체에서 동작해야 할 상세 스크롤(애니메이션 등)을 위한 옵션 설정을 한다. <br>
+        n1)어떠한 객체에서 Scene이 발생할지 트리거를 설정해야 한다. = 어떠한 객체에 스크롤이 닿으면 애니메이션이 발생할지 트리거를 설정함. <br>
+        트리거 설정(Scene 메서드 옵션): triggerElement: 'class 또는 id' <br>
+        2) GSAP(TweenMax) 애니메이션 오브젝트를 Scene 오브젝트에 추가한다. <br>
+        애니메이션 실행 설정 메서드: setTween() <br>
+        3) 마지막으로 ScrollMagic Controller에 Scene 오브젝트를 추가한다. <br>
+        Controller 실행 메서드: addTo() <br>
+        4) 디버깅을 위해서 인디케이터를 추가한다. 디버깅 후에는 삭제한다. <br>
+        디버깅 실행 설정 메서드: addIndicators()
+    </p>
+
+    <br><br>
+
+    <h1>duration (scene 옵션)</h1>
+    <p>
+        트리거의 애니메이션 시작지점부터 종료지점까지 재생시간을 나타내는 scene 메서드의 옵션 <br>
+        단위는 숫자, <br>
+        예) duration: 100 -> y축으로 100px 스크롤되는 동안 애니메이션 실행
+        예) duration: 100% -> 화면 높이에 따라 유동적으로 재생시간 변화
+    </p>
+    <section class="duration">
+        <div class="trigger" id="trigger1">Trigger!</div>
+        <div class="space"></div>
+        <div id="animate" class="wrap-icon">
+            <div id="animate1" class="icon">Scroll</div>
+            <div id="animate2" class="icon">Magic</div>
+            <div id="animate3" class="icon">Duration</div>
+            <div id="animate4" class="icon">....</div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js'></script>
+    <script>
+
+    </script>
+</body>
+</html>
