@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box { width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 30px; }
+        .box.a { background: mediumpurple; }
+        .box.b { background: green; margin-top: 300px; }
+        .box.c { background: orange; margin-top: 300px; margin-bottom: 10000px; }
+    </style>
+</head>
+<body>
+    <div class="box a">a</div>
+    <div class="box b">b</div>
+    <div class="box c">c</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+    <script>
+        /*
+        gsap.to('.c', {
+            scrollTrigger: '.c', // .c가 화면에 나타나면 애니메이션이 실행된다
+            x: 400,
+            rotation: 360,
+            duration: 3
+        });
+        */
+
+        // Toggle actions
+        /*
+        gsap.to('.c', {
+            scrollTrigger: {
+                trigger: '.c',
+                // onEnter, onLeave, onEnterBack, and onLeaveBack
+                // 값 종류: none, play, pause, resume, reverse, restart, reset, reset, complete
+                // toggleActions: 'play none none none',
+                // toggleActions: 'restart pause none none', // 들어갈때 재시작, 나갈때 멈춤
+                // toggleActions: 'restart pause resume none', // 들어갈때 재시작, 나갈때 멈춤, 나갔다가 다시 들어올때 멈췄던 곳에서 이어서 시작
+                // toggleActions: 'restart pause reverse none', // 들어갈때 재시작, 나갈때 멈춤, 나갔다가 다시 들어올때 멈췄던 곳에서 반대방향으로 시작
+                toggleActions: 'restart pause reverse pause', // 들어갈때 재시작, 나갈때 멈춤, 나갔다가 다시 들어올때 멈췄던 곳에서 반대방향으로 시작, 나갔다가 들어왔다가 다시 나갈때 멈춤
+            },
+            x: 400,
+            rotation: 360,
+            duration: 3
+        });
+         */
+
+        // 'start' and 'end'
+        gsap.to('.c', {
+            scrollTrigger: {
+                trigger: '.c',
+                toggleActions: 'restart pause reverse pause',
+                // start: '트리거 뷰포트'
+                // 값 종류: top, center, bottom, pixels, percentages(relative to top)
+                // start: 'top center', // when the top of the trigger hits the center of the viewport ( 트리거 상단이 뷰포트의 중앙에 닿을 때)
+                start: '20px 80%', // 트리거의 위에서 20px 내려온 곳이 뷰포트의 높이의 80% 위치 내려온 곳에 닿을 때 시작
+                end: 'bottom 100px', //
+                markers: {
+                    startColor: 'green',
+                    endColor: 'red',
+                    fontSize: '12px'
+                },
+            },
+            x: 400,
+            rotation: 360,
+            duration: 3
+        });
+    </script>
+</body>
+</html>

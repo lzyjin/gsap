@@ -89,6 +89,7 @@
         </svg>
     </section>
     <script>
+        // 일부 속성을 즉시 설정하려면 .set() 메서드를 사용하자.
         gsap.set('.logo2, .rocketMan', {
             transformOrigin: '50% 50%',
         });
@@ -104,7 +105,7 @@
         gsap.to(myObject, {
             duration: 20,
             rotation: 360,
-            // onStart, onComplete, onUpdate
+            // onStart, onComplete, onUpdate, onRepeat, onReverseComplete
             onUpdate: function () {
                 console.log(myObject.rotation);
             },
@@ -188,7 +189,7 @@
         document.getElementById('play').onclick = () => tween.play();
         document.getElementById('pause').onclick = () => tween.pause();
         document.getElementById('seek').onclick = () => tween.seek(2);
-        document.getElementById('progress').onclick = () => tween.progress(0.2);
+        document.getElementById('progress').onclick = () => tween.progress(  0.2);
         document.getElementById('reverse').onclick = () => tween.reverse();
         document.getElementById('timeScale4').onclick = () => tween.timeScale(4);
         document.getElementById('timeScale2').onclick = () => tween.timeScale(0.2);
