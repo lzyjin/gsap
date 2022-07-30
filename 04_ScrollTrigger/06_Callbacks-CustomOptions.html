@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Callbacks and Custom Options</title>
+    <style>
+        .box { width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 40px; }
+        .box.a { background: mediumpurple; margin-top: 200px; }
+        .box.b { background: green; margin-top: 300px; }
+        .box.c { background: orange; margin-top: 300px; position: relative; z-index: 1; }
+        .box.c-clone { background: #ccc; margin-top: -100px; margin-bottom: 10000px; }
+        .box.active { background: blue; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="box a">a</div>
+    <div class="box b">b</div>
+    <div class="box c">c</div>
+    <div class="box c-clone">c</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 유용한 기능
+        // ScrollTrigger.defaults({
+        //     toggleActions: 'restart pause resume none',
+        //     markers: true,
+        // });
+
+        ScrollTrigger.create({
+            trigger: '.c',
+            start: 'top center',
+            end: 'top 100px',
+
+            onEnter: () => console.log('enter'),
+            onLeave: () => console.log('leave'),
+            onEnterBack: () => console.log('enter back'),
+            onLeaveBack: () => console.log('all th e way back'),
+
+            onUpdate: (self) => console.log('update', self.progress.toFixed(3)),
+            onToggle: (self) => console.log('toggled', self.isActive),
+
+            toggleClass: 'active',
+
+            id: 'my-id', // markers에 해당하는 이름이 생김
+
+            // 기본적으로 scroller는 뷰포트 그 자체이지만 스크롤 가능한 <div>에 스크롤 트리거를 추가하려면 이를 스크롤러로 정의하기만 하면 됩니다
+            // scroller: '#container',
+
+            // horizontal: true,
+
+            markers: true
+        });
+    </script>
+</body>
+</html>

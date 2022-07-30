@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .box { width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 30px; }
-        .box.a { background: mediumpurple; }
+        .box { width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 40px; }
+        .box.a { background: mediumpurple; margin-top: 200px; }
         .box.b { background: green; margin-top: 300px; }
-        .box.c { background: orange; margin-top: 300px; margin-bottom: 10000px; }
+        .box.c { background: orange; margin-top: 300px; position: relative; z-index: 1; }
+        .box.c-clone { background: #ccc; margin-top: -100px; margin-bottom: 10000px; }
     </style>
 </head>
 <body>
     <div class="box a">a</div>
     <div class="box b">b</div>
     <div class="box c">c</div>
+    <div class="box c-clone">c</div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
     <script>
@@ -46,15 +49,21 @@
          */
 
         // 'start' and 'end'
+        /*
         gsap.to('.c', {
             scrollTrigger: {
                 trigger: '.c',
                 toggleActions: 'restart pause reverse pause',
+
                 // start: '트리거 뷰포트'
                 // 값 종류: top, center, bottom, pixels, percentages(relative to top)
                 // start: 'top center', // when the top of the trigger hits the center of the viewport ( 트리거 상단이 뷰포트의 중앙에 닿을 때)
-                start: '20px 80%', // 트리거의 위에서 20px 내려온 곳이 뷰포트의 높이의 80% 위치 내려온 곳에 닿을 때 시작
-                end: 'bottom 100px', //
+                start: '20px 80%', // 트리거의 상단에서 20px 내려온 곳이 뷰포트의 높이의 80% 위치 내려온 곳에 닿을 때 시작
+
+                // end: 'bottom 100px', // 트리거의 하단이 뷰포트의 높이의 100px 내려온 곳에 닿을 때 끝남
+                // end: '+=300', // end after scrolling 300px beyond the start (시작점부터 300px 스크롤한 후 종료)
+                end: () => '+=' + document.querySelector('.c').offsetWidth, // 함수로 문자열을 만들어 넘길수도 있다.
+
                 markers: {
                     startColor: 'green',
                     endColor: 'red',
@@ -65,6 +74,111 @@
             rotation: 360,
             duration: 3
         });
+        */
+
+        // endTrigger도 따로 설정할 수 있다.
+        /*
+        gsap.to('.b', {
+            scrollTrigger: {
+                trigger: '.a',
+                start: 'top 50px',
+                endTrigger: '.c',
+                end: 'bottom 80%',
+                markers: true,
+                toggleActions: 'restart pause reverse pause',
+
+                // .a의 상단이 뷰포트의 50px 높이에 닿을 때 .b가 애니메이션 시작되고,
+                // .c의 하단이 뷰포트의 80% 위치에 닿을 때 .b 애니메이션이 종료
+            },
+            x: 400,
+            rotation: 360,
+            duration: 3
+        });
+        */
+
+        // Scrub animations
+        // 스크롤 값의 비율만큼 애니메이션이 진행 된다. (맞나?)
+        /*
+        gsap.to('.c', {
+            scrollTrigger: {
+                trigger: '.c',
+                start: 'top center',
+                end: 'top 100px',
+                // scrub: 1, // The amount of time (in seconds) that the playhead should take to "catch up",
+                          // so scrub: 0.5 would cause the animation's playhead to take 0.5 seconds to catch up with the scrollbar's position.
+                          // It's great for smoothing things out.
+                          // 숫자 -> 재생 헤드가 '따라잡기'에 걸리는 시간(초). (매끄럽게 하는데 좋다)
+                scrub: 3,
+                markers: true
+            },
+            x: 400,
+            rotation: 360,
+            ease: 'none',
+            duration: 3,
+        });
+
+        gsap.to('.c-clone', {
+            scrollTrigger: {
+                trigger: '.c',
+                start: 'top center',
+                end: 'top 100px',
+                scrub: true, // scrub: true links the animation's progress directly to the ScrollTrigger's progress.
+                             // true -> 애니메이션의 진행률을 Scroll Trigger의 진행률과 직접 연결한다.
+                markers: true
+            },
+            x: 400,
+            rotation: 360,
+            ease: 'none',
+            duration: 3,
+        });
+        */
+
+        // 위 예제의 scrollTrigger를 TimeLine으로 바꿔보자.
+        /*
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.c',
+                start: 'top center',
+                end: 'top 100px',
+                scrub: 3,
+                markers: true
+            },
+        });
+        tl.to('.c', {
+            x: 400,
+            rotation: 360,
+            ease: 'none',
+            duration: 3
+        })
+        .to('.c', {
+            backgroundColor: 'purple',
+            duration: 1,
+        })
+        .to('.c', {
+            x: 0,
+            duration: 3
+        });
+        */
+
+        // Pinning
+        gsap.to('.c', {
+            scrollTrigger: {
+                trigger: '.c',
+                start: 'top center',
+                end: 'top 100px',
+                scrub: true,
+                // pin: true,
+                // Scroll Trigger가 활성화되어 있는 동안 고정되어야 하는 요소(또는 요소의 선택자 텍스트)입니다.
+                // 즉, 나머지 내용이 시작 위치에서 "붙어" 있는 것으로 나타납니다.
+                pin: '.c-clone',
+                markers: true
+            },
+            x: 400,
+            rotation: 360,
+            ease: 'none',
+            duration: 3
+        });
+
     </script>
 </body>
 </html>
